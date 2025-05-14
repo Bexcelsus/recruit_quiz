@@ -12,6 +12,18 @@ struct Question
 	string a;	//“š‚¦
 };
 
+//Å‘åŒö–ñ”‚ğ‹‚ß‚é
+int gcd(int a, int b) {
+	//—]‚è‚ª0‚É‚È‚Á‚½œ”‚ğ•Ô‚·
+	while (b)
+	{
+		int r = a % b;
+		a = b;	//œ”‚ğŸ‚Ì”íœ”‚É‚·‚é
+		b = r;	//—]‚è‚ğŸ‚Ìœ”‚É‚·‚é
+	}
+	return a;
+}
+
 int main() {
 	vector<Question> questions(3);
 
