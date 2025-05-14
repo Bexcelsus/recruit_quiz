@@ -12,18 +12,6 @@ struct Question
 	string a;	//答え
 };
 
-//最大公約数を求める
-int gcd(int a, int b) {
-	//余りが0になった時の除数を返す
-	while (b)
-	{
-		int r = a % b;
-		a = b;	//除数を次の被除数にする
-		b = r;	//余りを次の除数にする
-	}
-	return a;
-}
-
 int main() {
 	vector<Question> questions(3);
 
@@ -66,8 +54,6 @@ int main() {
 	x = uniform_int_distribution<>(1, 10)(rand) * 3;
 	questions.push_back({ "半径" + to_string(x) + "cmの球がある。\nこの球の体積をXπcm^3とする。xの値を求めよ。",
 		to_string((x * x * x * 4) / 3) });
-
-	//
 
 	cout << "[リクルート試験対策クイズ]\n";
 
