@@ -49,6 +49,9 @@ int main() {
 	questions.push_back({ "底面の半径" + to_string(x) + "cm,高さ" + to_string(y) + "の円錐がある。\n" +
 		"この円錐の体積をXπcm^3とする。Xの値を求めよ。",x * x * y / 3 });
 
+	//球の体積
+	x = uniform_int_distribution<>(1, 10)(rand) * 3;
+	questions.push_back({ "半径" + to_string(x) + "cmの球がある。\nこの球の体積をXπcm^3とする。xの値を求めよ。",(x * x * x * 4) / 3 });
 
 	cout << "[リクルート試験対策クイズ]\n";
 
