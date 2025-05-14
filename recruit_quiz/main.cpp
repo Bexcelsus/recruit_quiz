@@ -69,20 +69,34 @@ int main() {
 
 	//サイコロの確率
 	x = uniform_int_distribution<>(1, 5)(rand);
-	x = uniform_int_distribution<>(1, 6 - x)(rand);
+	y = uniform_int_distribution<>(1, 6 - x)(rand);
 	z = gcd(y + 1, 6);
 	questions.push_back({ "サイコロを1個振って、" + to_string(x) + "から" + to_string(x + y) + "が出る確率を求めよ。",
 		to_string((y + 1) / z) + "/" + to_string(6 / z) });
 
 	//順列
 	x = uniform_int_distribution<>(3, 7)(rand);
-	x = uniform_int_distribution<>(1, x)(rand);
+	y = uniform_int_distribution<>(1, x)(rand);
 	z = 1;
 	for (int i = 0; i < y; i++)
 	{
 		z *= x - i;
 	}
 	questions.push_back({ to_string(x) + "人の内" + to_string(y) + "人を選んで並べる方法は何通りあるか?",to_string(z) });
+
+	//組み合わせ
+	x = uniform_int_distribution<>(3, 6)(rand);
+	y = uniform_int_distribution<>(1, x)(rand);
+	z = 1;
+	for (int i = 0; i < y; i++)
+	{
+		z *= x - i;
+	}
+	for (int i = 0; i < y; i++)
+	{
+		z /= y - i;
+	}
+	questions.push_back({ to_string(x) + "人の内" + to_string(y) + "人を選ぶ組み合わせは何通りあるか?",to_string(z) });
 
 	cout << "[リクルート試験対策クイズ]\n";
 
