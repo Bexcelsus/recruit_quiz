@@ -6,21 +6,44 @@ using namespace std;
 vector<int> CreateRandomIndices(int n) {
 	//番号を配列に格納
 	vector<int> indices(n);	//indices : indexの複数形、indicesの方が古くから使われており一般的だがindexesでも間違いではない
-	for (int i = 0; i < n; i++)
-	{
+	for (int i = 0; i < n; i++){
 		indices[i] = i;
 	}
 
 	//番号の配列をシャッフル
+	Shuffle(indices);
+
+	return indices;
+}
+
+//配列をシャフルする
+void Shuffle(std::vector<int>& indices) {
+	const int n = static_cast<int>(indices.size());
+
 	random_device rd;
 	mt19937 rand(rd());
-	for (int i = n - 1; i > 0; i--)
-	{
+	for (int i = n - 1; i > 0; i--){
 		const int j = uniform_int_distribution<>(0, i)(rand);
 		const int tmp = indices[i];
 		indices[i] = indices[j];
 		indices[j] = tmp;
 	}
+}
+
+
+//間違った番号の配列を作成する(全ての答えから正しい答えを除外した配列)
+vector<int> CreateWrongIndices(int n, int correctIndex) {
+	//番号を配列に格納
+	vector<int> indices(n - 1);
+	for (int i = 0; i < correctIndex; i++){
+		indices[i] = i;
+	}
+	for (int i = correctIndex; i < n - 1; i++){
+		indices[i] = i + 1;
+	}
+
+	//番号の配列をシャッフル
+	Shuffle(indices);
 
 	return indices;
 }
