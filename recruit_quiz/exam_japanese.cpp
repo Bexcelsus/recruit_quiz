@@ -217,3 +217,50 @@ QuestionList CreateHomophoneExam()
 	}
 	return questions;
 }
+
+//‘Î‹`Œê‚Ì–â‘è‚ğì¬‚·‚é
+QuestionList CreateAntonymExam() 
+{
+	const struct {
+		const char* kanji[2];
+	} data[] = {
+		{"ˆÓ}","œ“ˆÓ"},{"ù—v","‹Ÿ‹‹"},
+		{"ŒÌˆÓ","‰ß¸"},{"B–†","–¾—Ä"},
+		{"‹Ù’£","’oŠÉ"},{"‰ß‘a","‰ß–§"},
+		{"‰h“]","¶‘J"},{"Á”ï","¶Y"},
+		{"ˆÙ’[","³“"},{"‘¸Œh","Œy•Ì"},
+		{"Œx‰ú","–û’f"},{"‹A”[","‰‰ãˆ"},
+		{"ŒÍŠ‰","‘ò"},{"Š£‘‡","¼"},
+		{"Ü^","”l“|"},{"’†•","––’["},
+		{"â^","“•]"},{"‘n‘¢","–Í•í"},
+		{"‰ßŒƒ","‰¸Œ’"},{"¿‘f","‰Ø”ü"},
+	};
+
+	constexpr int quizCount = 5;
+	QuestionList questions;
+	questions.reserve(quizCount);
+	const vector<int> indices = CreateRandomIndices(size(data));
+	random_device rd;
+
+
+	for (int i = 0; i < quizCount; i++) {
+		//ŠÔˆá‚Á‚½”Ô†‚ğƒ‰ƒ“ƒ_ƒ€‚É‘I‚Ô
+		const int correctIndex = indices[i];
+		vector<int> answers = CreateWrongIndices(size(data), correctIndex);
+
+		//ƒ‰ƒ“ƒ_ƒ€‚ÈˆÊ’u‚ğ³‚µ‚¢”Ô†‚Åã‘‚«
+		const int correctNo = uniform_int_distribution<>(1, 4)(rd);
+		answers[correctNo - 1] = correctIndex;
+
+		//–â‘è•¶‚ğì¬
+		const int object = uniform_int_distribution<>(0, 1)(rd);
+		const int other = (object + 1) % 2;
+		string s = "u" + string(data[correctIndex].kanji[object]) + "v‚Ì‘Î‹`Œê‚Æ‚µ‚Ä³‚µ‚¢”Ô†‚ğ‘I‚×";
+		for (int j = 0; j < 4; j++)
+		{
+			s += "\n  " + to_string(j + 1) + ":" + data[answers[j]].kanji[other];
+		}
+		questions.push_back({ s, to_string(correctNo) });
+	}
+	return questions;
+}
