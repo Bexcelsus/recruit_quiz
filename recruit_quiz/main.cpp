@@ -98,7 +98,7 @@ int main() {
 
 	cout << "[リクルート試験対策クイズ]\n";
 
-	cout << "教科を選んでください\n1=数学\n2=国語\n\,n3 =英語nx";
+	cout << "教科を選んでください\n1=数学\n2=国語\n3 =英語nx";
 	int subject;
 	cin >> subject;
 	if (subject == 2) {
