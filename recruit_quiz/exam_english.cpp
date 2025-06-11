@@ -1,5 +1,6 @@
 #include"exam_english.h"
 #include"utility.h"
+#include <random>
 using namespace std;
 
 //英単語の問題を作成する
@@ -25,11 +26,33 @@ QuestionList CreateEnglishWordExam() {
 	QuestionList questions;
 	questions.reserve(quizCount);
 	const vector<int> indices = CreateRandomIndices(size(data));
+	random_device rd;
 
-	for (int i = 0; i < quizCount; i++)
+	//文字の種類をランダムに選ぶ
+	const int type = uniform_int_distribution<>(0, 3)(rd);
+	switch (type)
 	{
-		const auto& e = data[indices[i]];
-		questions.push_back({ "「" + string(e.meaning) + "を意味する英単語を答えよ" });
+	case 0:	//意味から英単語を答える
+		for (int i = 0; i < quizCount; i++)
+		{
+			const auto& e = data[indices[i]];
+			questions.push_back({ "「" + string(e.meaning) + "を意味する英単語を答えよ" ,e.word});
+		}
+		break; 
+	case 1:	//読みから英単語を答える
+			for (int i = 0; i < quizCount; i++)
+			{
+				const auto& e = data[indices[i]];
+				questions.push_back({ "カタカナの読み「" + string(e.reading) + "」に対応する英単語を答えよ" ,e.word });
+			}
+			break;
+	case 2:	//英単語から読みを答える
+		for (int i = 0; i < quizCount; i++)
+		{
+			const auto& e = data[indices[i]];
+			questions.push_back({string(e.word) + "の読みをカタカナ答えよ" ,e.reading });
+		}
+		break;
 	}
 	return questions;
 }
