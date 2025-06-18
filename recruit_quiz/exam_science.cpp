@@ -51,5 +51,37 @@ QuestionList CreatePhysicsExam() {
 			"秒速" + to_string(v0) + "mで移動していた車がブレーキをかけたところ、" + to_string(v0 * t + a * t * t / 2) + "m進んで停止した。\nブレーキの加速度をm/s^2単位で求めよ。",
 			to_string(a) });
 	}	//等加速度直線運動
+
+	{	//重力加速度
+		int t = uniform_int_distribution<>(1, 10)(rd);	//移動時間
+		int x = 98 * t * t / 2;	//重力加速度9.8を10倍することで、小数点以下第1位までを整数として表す
+		string answer = to_string(x / 10);	//整数部を文字列化
+		if (x % 10) {
+			//少数部がある場合は少数部を文字列化
+			answer += '.';
+			answer += '0' + x % 10;
+		}
+		questions.push_back({
+			"重力加速度を9.8m/sとする。\n十分に高い位置から物体を静かに落とすと、物体は" + to_string(t) + "秒速で落下する。\n" + "Xの値を小数点第一位階まで求めよ(空気抵抗はないものとする)。",
+			answer });
+
+		int v0 = uniform_int_distribution<>(1, 10)(rd);	//初速
+		t = uniform_int_distribution<>(1, 10)(rd);	//移動時間
+		int v = v0 * 10 - 98 * t;	//10倍にすることで、小数点以下第1位までを整数として表す
+		answer.clear();
+		if (v < 0) {
+			v = -v;
+			answer += '.';
+		}
+		answer += to_string(v / 10);	//整数部を文字列化
+		if (v % 10) {
+			//少数部がある場合は少数部を文字列化
+			answer += '.';
+			answer += '0' + v % 10;
+		}
+		questions.push_back({
+			"重力加速度を9.8m/sとする。\n初速" + to_string(v0) + "秒後の物体を鉛直に投げ上げたとき、" + to_string(t) + "秒後の物体の速度はXm/sである。\n" + "Xの値を小数点以下第1位まで求めよ(空気抵抗はないものとする)。",
+			answer });
+	}	//重力加速度
 	return questions;
 }
