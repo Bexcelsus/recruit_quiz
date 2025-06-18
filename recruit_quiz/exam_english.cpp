@@ -109,14 +109,26 @@ QuestionList CreateEnglishPhraseExam()
 		"The tea was too hot to drink.","お茶が熱すぎて飲めなかった。",
 		2,{3,5}},
 		{"be looking forward to [A]","[A]を楽しみにする",
-		"I'm looking forward to seening you","あなたに会うのを楽しみにしています。",
+		"I'm looking forward to seening you.","あなたに会うのを楽しみにしています。",
 		3,{1,2,3}},
 		{"accoeding to [A]","[A]によると",
-		"Acoording to the weather forcast, today is rain,","天気予報によると、今日は雨だ。",
+		"Acoording to the weather forcast, today is rain.","天気予報によると、今日は雨だ。",
 		2,{0,1}},
 		{"as soon as [A]","[A]するとすぐに",
 		"As soon as I arrive, I will call you.","到着したらすぐに電話します。",
 		3,{2,3,4}},
+		{"be going to [A]","[A]するつもりだ",
+		"I am going to visit Osaka.","大阪に行くつもりだ。",
+		2,{2,3}},
+		{"turn to [A] for [B]","[A]に[B]を求める",
+		"She turn to the friends for help.","彼女は友達に助けを求めた。",
+		3,{1,2,5}},
+		{"it is not until [A] that [B]","[A]して初めて[B]する",
+		"It was not until dawn that the trouble solved.","大阪に行くつもりだ。",
+		3,{2,3,5}},
+		/*{"turn to [A] for [B]","[A]に[B]を求める",
+		"She turn to the friends for help.","彼女は友達に助けを求めた。",
+		2,{0,1}},*/
 	};
 
 	constexpr int quizCount = 5;
