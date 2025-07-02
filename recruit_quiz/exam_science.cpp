@@ -184,8 +184,15 @@ QuestionList CreatePhysicsExam() {
 			"重力加速度を10m/s^2とする。\nばね定数が" + to_string(k1) + "と" + to_string(k2) + "の2つのばねを並列につなぎ、" +
 			to_string(m) + "gの重りを付けて天井から吊り下げた。\nすると、ばねの長さが合わせてXcm伸びて静止した。\nXの値を小数点以下第二位を四捨五入して求めよ。",
 			answer });
-		//F=kxをmg(釣り合った時の力)=kxとして二つのばねのxとkをx1,x2,k1,k2として直列のばねのばね係数をkcとすると
-		//mg=kc*(x1+x2)=kc*(mg/k1+mg/k2)
 	}	//ばね
+
+	{	//振り子
+		int l = uniform_int_distribution<>(1, 10)(rd);		//長さ(m)の平方根
+		int m = uniform_int_distribution<>(1, 10)(rd);		//質量(g)
+		questions.push_back({	//変更 :	(x)cmのばね...→(a)cmのばね...
+			"長さ" + to_string(l*l) + "mの糸に質量" + to_string(m) + "kgの重りを付け、わずかに揺らしたところ、周期はX秒であった。\nXの値を求めよ。\n" +
+			"なお、重力加速度gと円周率について、π=√gが成り立つものとする。",
+			to_string(2 * l) });
+	}	//振り子
 	return questions;
 }
