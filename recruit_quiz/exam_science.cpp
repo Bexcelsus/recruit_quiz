@@ -83,10 +83,11 @@ QuestionList CreatePhysicsExam() {
 			"重力加速度を9.8m/sとする。\n初速" + to_string(v0) + "秒後の物体を鉛直に投げ上げたとき、" + to_string(t) + "秒後の物体の速度はXm/sである。\n" + "Xの値を小数点以下第1位まで求めよ(空気抵抗はないものとする)。",
 			answer });
 	}	//重力加速度
+
 	{	//浮力
 		//水の密度はほぼ1000kg/m^3なので、浮力=1000*体積*重力
-		int s = uniform_int<>(5, 20)(rd);	//底面積
-		int h = uniform_int<>(2, 20)(rd);	//高さ
+		int s = uniform_int_distribution<>(5, 20)(rd);	//底面積
+		int h = uniform_int_distribution<>(2, 20)(rd);	//高さ
 		int v = s * h + 5;	//体積を求め、四捨五入の為5を加える
 		string answer = to_string(v / 100);	//整数部を文字列に変換
 		v /= 10;	//小数点以下第二位に当たる部分を切り捨てる
@@ -100,8 +101,8 @@ QuestionList CreatePhysicsExam() {
 			answer });
 
 
-		int x = uniform_int<>(20, 20)(rd);	//重さ(空中)
-		int y = uniform_int<>(x/2, x - 1)(rd);	//重さ(水中)
+		int x = uniform_int_distribution<>(20, 20)(rd);		//重さ(空中)
+		int y = uniform_int_distribution<>(x/2, x - 1)(rd);	//重さ(水中)
 		int z = x - y + 5;
 		answer = to_string(z / 100);	//整数部を文字列に変換
 		z /= 10;	//小数点以下第二位に当たる部分を切り捨てる
@@ -112,6 +113,21 @@ QuestionList CreatePhysicsExam() {
 		questions.push_back({
 			"質量100kgの物体に働く重力を1Nとする。\nある物体の重さをばねはかりではかると、" + to_string(x) + "gを示した。\n" + "この物質を完全に水に入れたところ、ばねはかりは。\n" +
 			to_string(y) + "gを示した。\nこの時、物体に働く浮力はXニュートンである。/n" + "Xの値を小数点以下第2位を四捨五入して求めよ。",
+			answer });
+
+		int p0 = uniform_int_distribution<>(5, 20)(rd) * 100;	//密度
+		s = uniform_int_distribution<>(5, 10)(rd);				//底面積
+		h = uniform_int_distribution<>(5, 10)(rd);				//高さ
+		z = h * p0 + 50;
+		answer = to_string(z / 1000);
+		z /= 100;
+		if (z % 10) {	//小数点以下第一位が0以外なら少数部を文字列に変える
+			answer += '.';
+			answer += '0' + z % 10;
+		}
+		questions.push_back({
+			"密度"+ to_string(p0) + "kg/m^3、底面積" + to_string(s) + "cm^2、高さ" + to_string(h) + "cmの物体を水に沈めようとしたところ、Xcm沈んで静止した。\n" +
+			"Xの値を小数点以下第2位を四捨五入して求めよ。",
 			answer });
 	}	//浮力
 	return questions;
