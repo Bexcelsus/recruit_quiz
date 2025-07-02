@@ -157,16 +157,35 @@ QuestionList CreatePhysicsExam() {
 		}
 		m = uniform_int_distribution<>(1, 20)(rd) * 10;	//質量(g)
 		x = 100 * m * (k1 + k2) / (k1 * k2) + 5;
-		string answer = to_string(x / 100);	//整数部を文字列に変換
+		answer = to_string(x / 100);	//整数部を文字列に変換
 		x /= 10;	//小数点以下第二位に当たる部分を切り捨てる
 		if (x % 10) {	//小数点以下第一位が0以外なら少数部を文字列に変える
 			answer += '.';
-			answer += '0' + k % 10;
+			answer += '0' + x % 10;
 		}
 		questions.push_back({
 			"重力加速度を10m/s^2とする。\nばね定数が" + to_string(k1) + "と" + to_string(k2) + "の2つのばねを直列につなぎ、" +
 			to_string(m) + "gの重りを付けて天井から吊り下げた。\nすると、ばねの長さが合わせてXcm伸びて静止した。\nXの値を小数点以下第二位を四捨五入して求めよ。",
 			answer });
+		//F=kxをmg(釣り合った時の力)=kxとして二つのばねのxとkをx1,x2,k1,k2として直列のばねのばね係数をkcとすると
+		//mg=kc*(x1+x2)=kc*(mg/k1+mg/k2)
+
+		k1 = uniform_int_distribution<>(1, 10)(rd);		//ばね定数1(N/m)
+		k2 = uniform_int_distribution<>(1, 10)(rd);		//ばね定数2(N/m)
+		m = uniform_int_distribution<>(1, 10)(rd) * 10;	//質量(g)
+		x = 100 * m / (k1 + k2) + 5;
+		answer = to_string(x / 100);	//整数部を文字列に変換
+		x /= 10;	//小数点以下第二位に当たる部分を切り捨てる
+		if (x % 10) {	//小数点以下第一位が0以外なら少数部を文字列に変える
+			answer += '.';
+			answer += '0' + x % 10;
+		}
+		questions.push_back({
+			"重力加速度を10m/s^2とする。\nばね定数が" + to_string(k1) + "と" + to_string(k2) + "の2つのばねを並列につなぎ、" +
+			to_string(m) + "gの重りを付けて天井から吊り下げた。\nすると、ばねの長さが合わせてXcm伸びて静止した。\nXの値を小数点以下第二位を四捨五入して求めよ。",
+			answer });
+		//F=kxをmg(釣り合った時の力)=kxとして二つのばねのxとkをx1,x2,k1,k2として直列のばねのばね係数をkcとすると
+		//mg=kc*(x1+x2)=kc*(mg/k1+mg/k2)
 	}	//ばね
 	return questions;
 }
