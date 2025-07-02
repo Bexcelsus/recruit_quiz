@@ -145,9 +145,27 @@ QuestionList CreatePhysicsExam() {
 			answer += '.';
 			answer += '0' + k % 10;
 		}
-		questions.push_back({
-			"重力加速度を10m/s^2とする。\n長さ" + to_string(x) + "cmのばねの先端に" + to_string(m) + "gの重りを付けて天井から吊り下げた。\nすると、ばねの長さが" + 
+		questions.push_back({	//変更 :	(x)cmのばね...→(a)cmのばね...
+			"重力加速度を10m/s^2とする。\n長さ" + to_string(a) + "cmのばねの先端に" + to_string(m) + "gの重りを付けて天井から吊り下げた。\nすると、ばねの長さが" + 
 			to_string(a + x) + "cmになった。\nこのばねの「ばね定数」を小数点以下第二位を四捨五入して求めよ。",
+			answer });
+
+		int k1 = uniform_int_distribution<>(1, 10)(rd);		//ばね定数1(N/m)
+		int k2 = uniform_int_distribution<>(1, 9)(rd);		//ばね定数2(N/m)
+		if (k2 >= k1) {
+			k2++;
+		}
+		m = uniform_int_distribution<>(1, 20)(rd) * 10;	//質量(g)
+		x = 100 * m * (k1 + k2) / (k1 * k2) + 5;
+		string answer = to_string(x / 100);	//整数部を文字列に変換
+		x /= 10;	//小数点以下第二位に当たる部分を切り捨てる
+		if (x % 10) {	//小数点以下第一位が0以外なら少数部を文字列に変える
+			answer += '.';
+			answer += '0' + k % 10;
+		}
+		questions.push_back({
+			"重力加速度を10m/s^2とする。\nばね定数が" + to_string(k1) + "と" + to_string(k2) + "の2つのばねを直列につなぎ、" +
+			to_string(m) + "gの重りを付けて天井から吊り下げた。\nすると、ばねの長さが合わせてXcm伸びて静止した。\nXの値を小数点以下第二位を四捨五入して求めよ。",
 			answer });
 	}	//ばね
 	return questions;
