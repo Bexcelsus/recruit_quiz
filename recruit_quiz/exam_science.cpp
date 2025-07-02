@@ -130,5 +130,25 @@ QuestionList CreatePhysicsExam() {
 			"Xの値を小数点以下第2位を四捨五入して求めよ。",
 			answer });
 	}	//浮力
+
+	{	//ばね
+		//フックの法則:ばねの力"F"は、ばねの自然長からの変化量に比例するという法則	F=k(ばね定数)*x
+		//ばね定数の単位はN/m	(ニュートン:1Nは1kgの物体に1m/sの加速度を生じさせる力。をメートルで割る)
+		int a = uniform_int_distribution<>(10, 30)(rd);		//自然長(cm)
+		int x = uniform_int_distribution<>(1, a/2)(rd);		//自然長からの変化量(cm)
+		int m = uniform_int_distribution<>(1, 20)(rd) * 10;	//質量(g)
+		//k = kg/変化量m
+		int k = 100 * m / x + 5;	//kの100倍を求め、四捨五入のため5を足す
+		string answer = to_string(k / 100);	//整数部を文字列に変換
+		k /= 10;	//小数点以下第二位に当たる部分を切り捨てる
+		if (k % 10) {	//小数点以下第一位が0以外なら少数部を文字列に変える
+			answer += '.';
+			answer += '0' + k % 10;
+		}
+		questions.push_back({
+			"重力加速度を10m/s^2とする。\n長さ" + to_string(x) + "cmのばねの先端に" + to_string(m) + "gの重りを付けて天井から吊り下げた。\nすると、ばねの長さが" + 
+			to_string(a + x) + "cmになった。\nこのばねの「ばね定数」を小数点以下第二位を四捨五入して求めよ。",
+			answer });
+	}	//ばね
 	return questions;
 }
