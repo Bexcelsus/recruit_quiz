@@ -47,3 +47,23 @@ vector<int> CreateWrongIndices(int n, int correctIndex) {
 
 	return indices;
 }
+
+vector<string> Split(const string& s, char c) {
+	vector<string>v;//分割した文字を格納配列(戻り値)
+
+	//全ての文字列をループ処理
+	auto begin = s.begin();		//分割範囲の先頭位置
+	const auto end = s.end();	//文字列の終端
+	for (auto p = begin; p != end; ++p)
+	{
+		//区切り模試の前までを文字列として分割
+		if (*p == c) {
+			v.push_back(string(begin, p));
+			begin = p + 1;	//先頭位置を「区切り文字の次」の位置に更新
+		}
+	}
+	//残りの部分を配列に追加
+	v.push_back(string(begin, end));
+
+	return v;
+}
