@@ -79,7 +79,7 @@ QuestionList CreatePoliticsExam()
 				if (k != index) {
 					s.append(question.answers[k]);	//選ばれなかった空欄の場合は答えをコピー
 				} else {
-					s.append("[ ? }");	//選ばれた空欄の場合は「表示用の空欄文字列」をコピー
+					s.append("[ ? ]");	//選ばれた空欄の場合は「表示用の空欄文字列」をコピー
 				}
 				from = end + 2;	//コピー元の位置を更新
 			}

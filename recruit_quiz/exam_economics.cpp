@@ -88,13 +88,19 @@ QuestionList CreateEconomicsExam()
 					s += question.answers[k][0];	//選ばれなかった空欄の場合は答えをコピー
 				}
 				else {
-					s.append("[ ? }");	//選ばれた空欄の場合は「表示用の空欄文字列」をコピー
+					s.append("[ ? ]");	//選ばれた空欄の場合は「表示用の空欄文字列」をコピー
 				}
 				from = end + 2;	//コピー元の位置を更新
 			}
 			s.append(question.text, from);	//問題文の末尾部分をコピー
 
 			questions.push_back({ s,question.answers[index][0] });
+
+			//答えが複数有りうる場合、それらを「答えb」の配列に代入
+			const auto& answer = question.answers[index];
+			if (answer.size() > 1) {
+				questions.back().b.assign(answer.begin() + 1, answer.end());
+			}
 		}//for j < quizCount
 	}//for i < genreCount
 	return questions;
